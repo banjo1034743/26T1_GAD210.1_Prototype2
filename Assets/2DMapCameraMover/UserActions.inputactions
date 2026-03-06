@@ -1,0 +1,55 @@
+{
+    "version": 1,
+    "name": "UserActions",
+    "maps": [
+        {
+            "name": "Map",
+            "id": "1a66f919-9a70-4261-ac5b-4e977477e892",
+            "actions": [
+                {
+                    "name": "Drag",
+                    "type": "Button",
+                    "id": "9716f044-63fe-46a6-a870-7975447a9bb8",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Mouse Position",
+                    "type": "PassThrough",
+                    "id": "1ba79358-56fb-4a17-ae31-c48f8fe7048a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "4db6858b-eab8-4b80-aa6a-6c31be5b695b",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "285b0ce2-60eb-491a-9459-34d611f2af2e",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse Position",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
