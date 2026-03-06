@@ -30,17 +30,19 @@ namespace GAD210.Prototype2.MovementSystem
             return _inputActionMousePos.ReadValue<Vector2>();
         }
 
-        public bool CheckIfDragging()
+        public bool CheckIfStartedDragging()
         {
-            switch (_inputActionDrag.ReadValue<float>())
-            {
-                case > 0.9f:
-                    //Debug.Log("We are dragging the screen!");
-                    return true;
-                default:
-                    return false;
-            }
-            //return _inputActionDrag.WasPerformedThisFrame();
+            return _inputActionDrag.WasPressedThisFrame();
+        }
+
+        public bool CheckIfPerformedDragging()
+        {
+            return _inputActionDrag.WasPerformedThisFrame();
+        }
+
+        public bool CheckIfStoppedDragging()
+        {
+            return _inputActionDrag.WasReleasedThisFrame();
         }
 
         private void InitializeInputActions()
