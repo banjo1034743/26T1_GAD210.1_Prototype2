@@ -1,0 +1,46 @@
+{
+    "version": 1,
+    "name": "PhoneActions",
+    "maps": [
+        {
+            "name": "Phone",
+            "id": "672a3e95-b70a-492c-9d36-c3dd71b7012d",
+            "actions": [
+                {
+                    "name": "Scroll",
+                    "type": "Value",
+                    "id": "e53ea27d-b442-417a-b50a-589aed43692d",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "03bf7cc1-dedc-4293-a415-e6445a36d838",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "45c6a940-b764-4593-8a4f-01bbc4e382bd",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "Invert",
+                    "groups": "",
+                    "action": "Scroll",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
