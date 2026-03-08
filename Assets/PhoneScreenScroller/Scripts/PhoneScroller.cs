@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace GAD210.Prototype2.PhoneScroller
 {
@@ -14,11 +15,15 @@ namespace GAD210.Prototype2.PhoneScroller
 
         [SerializeField] private GameObject[] textBoxesObjects;
 
-        [SerializeField] private float amountToMoveTextBoxDown;
+        [SerializeField] private float amountToMoveTextBox;
 
         [SerializeField] private int _currentBoxToTranslateFrom;
 
-        [SerializeField] private float yPosToMoveBoxesDown;
+        [Tooltip("The Y value that a text box must exceed when the screen is scrolled down before moving to the bottom of the text boxes")]
+        [SerializeField] private float yPosToMoveBoxesUp; // 2000
+
+        [Tooltip("The Y value that a text box must exceed when the screen is scrolled up before moving to the top of the text boxes")]
+        [SerializeField] private float yPosToMoveBoxesDown; // -2000?
 
         [SerializeField] private InputManager _inputManager;
 
@@ -35,22 +40,67 @@ namespace GAD210.Prototype2.PhoneScroller
         {
             foreach (var textBox in textBoxesRect)
             {
-                if (textBox.position.y >= yPosToMoveBoxesDown)
+                // check if we're scrolling up before checking this
+                if (_inputManager.GetScrollValue() > 0)
                 {
-                    textBox.position = textBoxesRect[_currentBoxToTranslateFrom].transform.position;
-                    textBox.Translate(Vector2.down * textBoxesRect[_currentBoxToTranslateFrom].sizeDelta.y * amountToMoveTextBoxDown);
-
-                    switch (_currentBoxToTranslateFrom)
+                    if (textBox.position.y >= yPosToMoveBoxesUp)
                     {
-                        case 4:
-                            _currentBoxToTranslateFrom = 0;
-                            break;
-                        case >= 0:
-                            _currentBoxToTranslateFrom++;
-                            break;
+                        RectTransform rectTransformToUse = GetTextBoxWithLowestYPos();
+                        textBox.position = rectTransformToUse.position;
+
+                        textBox.Translate(Vector2.down * (textBox.sizeDelta.y + 120));
+                    }
+                }
+                // check if we're scrolling up before checking this
+                else if (_inputManager.GetScrollValue() < 0)
+                {
+                    // If the current text box we're checking is below a certain y pos, run the steps below
+                    if (textBox.position.y <= yPosToMoveBoxesDown)
+                    {
+                        // Set the position of the current text box to the highest text box in terms of Y pos, using the method to check which one this is
+                        RectTransform rectTransformToUse = GetTextBoxWithHighestYPos();
+                        textBox.position = rectTransformToUse.position;
+
+                        // Translate from that text box's positon upward, multiplying how much we do so by the size of that text box and amountToMoveTextBox
+                        textBox.Translate(Vector2.up * (textBox.sizeDelta.y + 120));
                     }
                 }
             }
+        }
+
+        // Method which goes through textBoxRect array to find the text box at the highest Y pos
+        private RectTransform GetTextBoxWithHighestYPos()
+        {
+            float highestYPos = 0;
+            RectTransform rectTransformToReturn = null;
+
+            foreach (var textBox in textBoxesRect)
+            {
+                if (textBox.position.y > highestYPos)
+                {
+                    highestYPos = textBox.position.y;
+                    rectTransformToReturn = textBox;
+                }
+            }
+
+            return rectTransformToReturn;
+        }
+
+        private RectTransform GetTextBoxWithLowestYPos()
+        {
+            float lowestYPos = 2000; // set high so we can ensure that this will be reset to at least one of the text box's Y pos
+            RectTransform rectTransformToReturn = null;
+
+            foreach (var textBox in textBoxesRect)
+            {
+                if (textBox.position.y < lowestYPos)
+                {
+                    lowestYPos = textBox.position.y;
+                    rectTransformToReturn = textBox;
+                }
+            }
+
+            return rectTransformToReturn;
         }
 
         #endregion

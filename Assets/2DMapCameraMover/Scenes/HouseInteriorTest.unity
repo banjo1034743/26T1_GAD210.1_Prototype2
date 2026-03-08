@@ -1164,9 +1164,10 @@ MonoBehaviour:
   - {fileID: 40878317}
   - {fileID: 1515537283}
   - {fileID: 267690189}
-  amountToMoveTextBoxDown: 1.5
+  amountToMoveTextBox: 1.5
   _currentBoxToTranslateFrom: 4
-  yPosToMoveBoxesDown: 2000
+  yPosToMoveBoxesUp: 2000
+  yPosToMoveBoxesDown: -1000
   _inputManager: {fileID: 1662398076}
 --- !u!1 &1665053494
 GameObject:
